@@ -14,7 +14,10 @@
                         </div>
                     @endif
 
-                    {{ Auth::user()->name }},  you are logged in! 
+                    <p>{{ Auth::user()->name }},  you are logged in!</p> 
+
+                    <a class="btn btn-info text-light" href="{{route('billet.index')}}"> Show billets </a>
+
                 </div>
             </div>
         </div>

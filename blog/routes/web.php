@@ -15,17 +15,14 @@ Route::get('/', function () {
     return view('index');
 });
 
-Auth::routes(['register'=> false]);
-
 Route::get('/home', 'HomeController@index')->name('home');
-
-// Registration Routes...
+Auth::routes(['register'=> false]);
 Route::get('inscription', 'Auth\RegisterController@showRegistrationForm')->name('register');
 Route::post('inscription', 'Auth\RegisterController@register');
+
+Route::get('/billet/new', 'BilletController@create')->name('billet.edit');
 Route::resource('/user', 'UserController');
+Route::resource('/billet', 'BilletController', [
+    'except' => ['create']
+]); 
 
-// Route::get('/inscription', function(){
-//     return view('auth.register');
-// });
-
-// Route::redirect('/register','/inscription');

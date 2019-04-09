@@ -24,7 +24,7 @@
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                    My Blog 
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -66,6 +66,16 @@
                                                      document.getElementById('update-form').submit();">
                                         {{ __('Update profile') }}
                                     </a>
+
+                                    <a class="dropdown-item" href="{{ url('/billet') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('showBillets-form').submit();">
+                                        {{ __('show billets') }}
+                                    </a>
+
+                                    <form id="showBillets-form" action="{{ url('/billet') }}" method="GET" style="display: none;">
+                                        @csrf
+                                    </form>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
