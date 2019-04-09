@@ -30,7 +30,6 @@
 
             </div>
             @endforeach
-
             <a href="{{ url('/billet/new')}}" type="button" class="btn btn-primary btn-lg btn-block">Add billet</a>
         </div>
     </div>
