@@ -85,7 +85,9 @@ class BilletController extends Controller
      */
     public function edit($id)
     {
-        //
+        $billet = Billet::findOrFail($id); 
+
+        return view('billet.edit', compact('billet')); 
     }
 
     /**
@@ -97,7 +99,21 @@ class BilletController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validate = $request->validate([
+            'title'=> 'required|max:255',
+            'content' => 'required|string', 
+            'tags' => 'required|string',
+        ]);
+
+        Billet::whereId($id)->update([
+            'title' => request('title'),
+            'content' => request('content'),
+            'user_id' => auth()->id(), 
+            'tags'=> request('tags')
+        ]);
+
+        return redirect('billet')->with('success', 'Ads is successfully updated');
+
     }
 
     /**
@@ -108,6 +124,10 @@ class BilletController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $billet = Billet::findOrFail($id);
+
+        $billet->delete();
+
+        return redirect('/billet')->with('success', 'billet is successfully deleted');
     }
 }

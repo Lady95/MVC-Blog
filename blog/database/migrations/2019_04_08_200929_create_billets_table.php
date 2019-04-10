@@ -20,9 +20,9 @@ class CreateBilletsTable extends Migration
             $table->text('content');
             $table->foreign('user_id')->references('id')->on('users');
             $table->string('tags'); 
-            $table->timestamps();
-            //$table->timestamp('created')->nullable();
-            //$table->timestamp('updated')->nullable();
+            //$table->timestamps();
+            $table->timestamp('created')->useCurrent();
+            $table->timestamp('updated')->useCurrent();
         });
     }
 

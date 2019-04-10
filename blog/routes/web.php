@@ -24,5 +24,4 @@ Route::get('/billet/new', 'BilletController@create')->name('billet.edit');
 Route::resource('/user', 'UserController');
 Route::resource('/billet', 'BilletController', [
     'except' => ['create']
-]); 
-
+]);
