@@ -11,17 +11,42 @@
 |
 */
 
+
+
+// home
+
 Route::get('/', function () {
     return view('index');
 });
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+// inscription
 Auth::routes(['register'=> false]);
 Route::get('inscription', 'Auth\RegisterController@showRegistrationForm')->name('register');
 Route::post('inscription', 'Auth\RegisterController@register');
 
-Route::get('/billet/new', 'BilletController@create')->name('billet.edit');
+//billet
+Route::get('/billet/new', 'BilletController@create')->name('billet.create');
+
+//comments
+Route::post('/comment/{id}', 'CommentController@store')->name('comment.store');
+
+//admin
+Route::get('/admin', 'AdminController@index')->name('admin.index'); 
+Route::get('/admin/users', 'AdminController@users')->name('admin.users'); 
+Route::get('/admin/billets', 'AdminController@billets')->name('admin.billets'); 
+Route::get('/admin/comments', 'AdminController@comments')->name('admin.comments'); 
+
+
+//user
 Route::resource('/user', 'UserController');
+
+//comments resource
+Route::resource('/comment', 'CommentController',[
+    'except'=>['create','store']
+]);
+//billet resource
 Route::resource('/billet', 'BilletController', [
     'except' => ['create']
 ]);

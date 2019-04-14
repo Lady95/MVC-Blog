@@ -37,8 +37,29 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+
+    //  User hasMany billets
     public function billets() {
         return $this->hasMany(Billet::class);
     }
 
+    // User hasMany comments
+    public function comments() {
+        return $this->hasMany(Comment::class); 
+    }
+
+    public function roles() {
+        return $this->belongsToMany(Role::class);
+    }
+
+    // Any roles
+    public function hasAnyRoles($roles) {
+        return null !== $this->roles()->whereIn('name', $roles)->first();
+    }
+
+    // single role
+    public function hasAnyRole($role) {
+        return null !== $this->roles()->where('name', $role)->first();
+    }
+    
 }

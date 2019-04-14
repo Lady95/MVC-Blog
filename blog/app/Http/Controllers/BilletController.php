@@ -27,9 +27,9 @@ class BilletController extends Controller
      */
     public function index()
     {
-        $billets = Billet::all(); 
-
-        return view('billet.show', compact('billets')); 
+        $billets = Billet::orderBy('id', 'desc')->paginate(3);
+        $posts = Billet::withCount('comments')->get();
+        return view('billet.show', compact('billets', 'posts')); 
     }
 
     /**
@@ -74,7 +74,8 @@ class BilletController extends Controller
      */
     public function show($id)
     {
-        
+        $billet = Billet::findOrFail($id); 
+        return view('billet.showUnit', compact('billet')); 
     }
 
     /**
@@ -86,7 +87,6 @@ class BilletController extends Controller
     public function edit($id)
     {
         $billet = Billet::findOrFail($id); 
-
         return view('billet.edit', compact('billet')); 
     }
 
@@ -125,9 +125,7 @@ class BilletController extends Controller
     public function destroy($id)
     {
         $billet = Billet::findOrFail($id);
-
         $billet->delete();
-
         return redirect('/billet')->with('success', 'billet is successfully deleted');
     }
 }

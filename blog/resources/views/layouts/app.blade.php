@@ -49,16 +49,29 @@
                                 </li>
                             @endif
                         @else
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url('/billet') }}">
+                                            {{ __('Show Posts') }}
+                                        </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url('/billet/new') }}">
+                                            {{ __('Add Post') }}
+                                        </a>
+                            
+                            </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+
+                                <a class="dropdown-item" href="{{ route('user.show', Auth::user()->id) }}" onclick="event.preventDefault();
+                                                     document.getElementById('profile-form').submit();">
+                                        My Profil
                                     </a>
 
                                     <a class="dropdown-item" href="{{ route('user.edit', Auth::user()->id) }}"
@@ -67,21 +80,21 @@
                                         {{ __('Update profile') }}
                                     </a>
 
-                                    <a class="dropdown-item" href="{{ url('/billet') }}"
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
-                                                     document.getElementById('showBillets-form').submit();">
-                                        {{ __('show billets') }}
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
                                     </a>
 
-                                    <form id="showBillets-form" action="{{ url('/billet') }}" method="GET" style="display: none;">
-                                        @csrf
-                                    </form>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    <form id="profile-form" action="{{ route('user.show', Auth::user()->id) }}" method="GET" style="display: none;">
                                         @csrf
                                     </form>
 
                                     <form id="update-form" action="{{ route('user.edit', Auth::user()->id) }}" method="GET" style="display: none;">
+                                        @csrf
+                                    </form>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash; 
 use App\User; 
 
 class UserController extends Controller
@@ -57,7 +58,9 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::find($id); 
+
+        return view('user.profile', compact('user'));
     }
 
     /**
@@ -82,7 +85,25 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'username' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
+            'lastname' => 'required|string|max:255',
+            'birthdate' => 'required|date',
+            'email' => 'required|string|email|max:255',
+            'password' => 'required|string|min:8',
+        ]);
+
+        $user = User::find($id); 
+        $user->username = $request->get('username'); 
+        $user->name = $request->get('name'); 
+        $user->lastname = $request->get('lastname'); 
+        $user->birthdate = $request->get('birthdate'); 
+        $user->email = $request->get('email'); 
+        $user->password = Hash::make($request->get('password')); 
+        $user->save(); 
+
+        return redirect('/user/'. $id)->with('success', 'User is successfully updated');
     }
 
     /**
