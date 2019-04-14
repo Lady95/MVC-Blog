@@ -37,6 +37,7 @@ Route::get('/admin', 'AdminController@index')->name('admin.index');
 Route::get('/admin/users', 'AdminController@users')->name('admin.users'); 
 Route::get('/admin/billets', 'AdminController@billets')->name('admin.billets'); 
 Route::get('/admin/comments', 'AdminController@comments')->name('admin.comments'); 
+Route::get('/admin/updateUsers/{id}', 'AdminController@update')->name('admin.updateUsers'); 
 
 
 //user

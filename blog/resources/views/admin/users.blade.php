@@ -33,6 +33,19 @@
                                 <td>{{$user->lastname}}</td>
                                 <td>{{$user->birthdate}}</td>
                                 <td>{{$user->roleName}}</td>
+                                <td>
+                                    <form action="{{route('admin.updateUsers', $user->id)}}">
+                                        <label for="role_id">Select role</label>
+                                        <select class="form-control" id="role_id">
+                                            @foreach($roles as $role)
+                                            <option value="{{ $role->id}}"> {{ $role->name }}</option>
+                                            @endforeach
+                                        </select>
+
+                                        <input type="submit" class="btn btn-info m-3" value="update">
+                                    </form>
+
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>

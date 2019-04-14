@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 
+
 class AdminController extends Controller
 {
 
@@ -55,7 +56,9 @@ class AdminController extends Controller
         ->leftJoin('roles', 'role_user.role_id', '=', 'roles.id')
         ->select('users.*', 'roles.name AS roleName')
         ->Paginate(10);
-        return view('admin.users', compact('users'));
+
+        $roles = DB::table('roles')->get(); 
+        return view('admin.users', compact('users', 'roles'));
     }
 
     /**
@@ -89,6 +92,29 @@ class AdminController extends Controller
         ->Paginate(10);
 
         return view('admin.comments', compact('comments'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        $validate = $request->validate([
+            'role_id'=> 'required',
+            'user_id'=> 'required',
+            
+        ]);
+
+        Billet::update([
+            'role_id' => request(''),
+            'user_id' => $id 
+        ]);
+
+        return redirect('/admin/users')->with('success', 'role of user is successfully updated');
     }
 
     // /**
@@ -134,17 +160,7 @@ class AdminController extends Controller
     //     //
     // }
 
-    // /**
-    //  * Update the specified resource in storage.
-    //  *
-    //  * @param  \Illuminate\Http\Request  $request
-    //  * @param  int  $id
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function update(Request $request, $id)
-    // {
-    //     //
-    // }
+    
 
     // /**
     //  * Remove the specified resource from storage.
