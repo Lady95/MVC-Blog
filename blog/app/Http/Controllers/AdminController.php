@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use App\Role_user; 
 
 
 
@@ -109,8 +110,8 @@ class AdminController extends Controller
             
         ]);
 
-        Billet::update([
-            'role_id' => request(''),
+        Role_user::update([
+            'role_id' => request('role_id'),
             'user_id' => $id 
         ]);
 
