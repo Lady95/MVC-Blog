@@ -48,7 +48,20 @@
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
                             @endif
+
+                            
                         @else
+
+                            @if (Auth::user()->hasAnyRole('admin'))
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('admin.index') }}">{{ __('Home admin') }}</a>
+                                </li>
+                                
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('admin.users') }}">{{ __('List users') }}</a>
+                                </li>
+                                
+                            @endif
 
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ url('/billet') }}">

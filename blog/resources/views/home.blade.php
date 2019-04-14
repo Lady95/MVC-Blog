@@ -7,9 +7,8 @@
             <div class="card">
                 <div class="card-header">Dashboard</div>
                     <div class="card-body">
-                        @if (session('status') || session('success'))
+                        @if ( session('success'))
                             <div class="alert alert-success" role="alert">
-                                {{ session('status') }}
                                 {{ session('success') }}
                             </div>
                         @endif
@@ -18,6 +17,15 @@
 
                         <a class="btn btn-info text-light" href="{{route('billet.index')}}"> Show billets </a>
 
+                        <div class="m-4">
+                            @if (Auth::user()->hasAnyRole('admin')) 
+                             <h4>Lists :</h4>
+                            <a class="btn btn-info text-light" href="{{route('admin.users')}}"> Show Users </a>
+                            <a class="btn btn-info text-light" href="{{route('admin.billets')}}"> Show Billets </a>
+                            <a class="btn btn-info text-light" href="{{route('admin.comments')}}"> Show Comments </a>
+                            @endif
+                        </div>
+                        
                     </div>
             </div>
         </div>

@@ -9,6 +9,7 @@ class AdminController extends Controller
 {
 
     public function __construct() {
+        
         $this->middleware(['auth', 'auth.admin']);
     }
 
@@ -23,12 +24,12 @@ class AdminController extends Controller
         $users = DB::table('users')->orderBy('id', 'desc')->offset(0)->limit(10)->get(); 
         
         $billets = DB::table('billets')
-            ->join('users', 'billets.user_id', '=', 'users.id')
-            ->select('billets.*', 'users.username')
-            ->orderBy('id', 'desc')
-            ->offset(0)
-            ->limit(10)
-            ->get(); 
+        ->join('users', 'billets.user_id', '=', 'users.id')
+        ->select('billets.*', 'users.username')
+        ->orderBy('id', 'desc')
+        ->offset(0)
+        ->limit(10)
+        ->get(); 
 
         $comments= DB::table('comments')
         ->join('users', 'comments.user_id', '=', 'users.id')
@@ -46,9 +47,15 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function users()
     {
-        
+        $users = DB::table('users')
+        ->leftJoin('role_user', 'users.id', '=', 'role_user.user_id')
+        ->leftJoin('roles', 'role_user.role_id', '=', 'roles.id')
+        ->select('users.*', 'roles.name AS roleName')
+        ->Paginate(10);
+        return view('admin.users', compact('users'));
     }
 
     /**
@@ -58,7 +65,13 @@ class AdminController extends Controller
      */
     public function billets()
     {
-        
+        $billets = DB::table('billets')
+        ->join('users', 'billets.user_id', '=', 'users.id')
+        ->select('billets.*', 'users.username')
+        ->orderBy('id', 'asc')
+        ->Paginate(10);
+
+        return view('admin.billets', compact('billets'));
     }
 
     /**
@@ -68,7 +81,14 @@ class AdminController extends Controller
      */
     public function comments()
     {
-        
+        $comments = DB::table('comments')
+        ->join('users', 'comments.user_id', '=', 'users.id')
+        ->join('billets', 'comments.billet_id', '=', 'billets.id')
+        ->select('comments.*', 'users.username', 'billets.title')
+        ->orderBy('id', 'asc')
+        ->Paginate(10);
+
+        return view('admin.comments', compact('comments'));
     }
 
     // /**

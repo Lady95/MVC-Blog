@@ -81,7 +81,6 @@
                             <th>Created</th>
                         </tr>
                     </thead>
-
                     <tbody>
                         @foreach($comments as $comment)
                             <tr>
@@ -95,10 +94,7 @@
                     </tbody>
                 </table>
             </div>
-            
-            
         </div>
-        
     </div>
 </div>
 

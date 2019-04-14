@@ -59,7 +59,7 @@
             </div>
             @endforeach
 
-            <div class="tewt-center">
+            <div class="text-center">
                 {!! $billets->links(); !!}
             </div>
             
