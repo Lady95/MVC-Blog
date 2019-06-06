@@ -10,7 +10,7 @@
                 </div>
             @endif
 
-            <a href="{{ url('/billet/new')}}" type="button" class="btn btn-primary btn-lg btn-block m-3">Add billet</a>
+            <!-- <a href="{{ url('/billet/new')}}" type="button" class="btn btn-primary btn-lg btn-block m-3">Add billet</a> -->
             @foreach ($billets as $billet)
             <div class="col-md-12">
                 <div class="card m-3">
@@ -47,10 +47,8 @@
 
                     <div class="card-footer text-muted">
                            <a href="{{route('billet.show', $billet->id)}}">  
-
-                           @foreach($posts as $comment)
-                            {{ $comment->comments_count }}
-                           @endforeach 
+                           
+                           {{$billet->comments->count()}}
                              Comments
                              </a>
                     </div>

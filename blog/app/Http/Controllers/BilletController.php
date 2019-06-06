@@ -27,7 +27,6 @@ class BilletController extends Controller
     public function index()
     {
         $billets = Billet::orderBy('id', 'desc')->paginate(3);
-        $posts = Billet::withCount('comments')->get();
         return view('billet.show', compact('billets', 'posts')); 
     }
 

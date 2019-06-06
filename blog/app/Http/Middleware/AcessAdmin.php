@@ -18,7 +18,6 @@ class AcessAdmin
     {
         
        if(Auth::user()->hasAnyRole('admin')) {
-           $value = session()->push('status', 'admin');
            return $next($request);
        }
        return redirect('home');

@@ -7,7 +7,6 @@ use App\Comment;
 
 class CommentController extends Controller
 {
-
     public function __construct() {
         $this->middleware('auth');
     }
@@ -50,7 +49,7 @@ class CommentController extends Controller
         ]);
 
 
-        return redirect('/billet/'. $id)->with('success', 'User is successfully updated');
+        return redirect('/billet/'. $id)->with('success', 'comment is successfully add');
 
     }
 
